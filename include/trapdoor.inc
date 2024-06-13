@@ -1,13 +1,20 @@
 <?php
 class Trapdoor {
+    // general ticks
     private $ticks;
 
+    // how long to stay open/closed
     private $openTime;
     private $closedTime;
 
+    // open or closed
     private $state;
 
+    // what type of trapdoor or platform
     private $type;
+
+    // boolean indicating if the player has travelled on this space before
+    private $travelled;
 
     public static $stateOpen = "OPEN";
     public static $stateClosed = "CLOSED";
@@ -33,7 +40,7 @@ class Trapdoor {
                     if (rand(0, 1)) {
                         $this->state = Trapdoor::$stateOpen;
                     }
-                    
+
                     break;
                 case 1:
                     // doesn't change
@@ -55,6 +62,10 @@ class Trapdoor {
     public function tick($standingOn = false) {
         $state = $this->getState();
         $type = $this->getType();
+
+        if ($standingOn) {
+            $this->travelled = true;
+        }
 
         if ($this->type == Trapdoor::$typeTimed) {
             $this->ticks++;
@@ -94,6 +105,10 @@ class Trapdoor {
 
     public function getType() {
         return $this->type;
+    }
+
+    public function getTravelled() {
+        return $this->travelled;
     }
 
     public function __toString() {

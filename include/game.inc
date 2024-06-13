@@ -76,7 +76,10 @@ class Game {
                     if ($this->pos > 0) {
                         $this->pos--;
                         $redraw = true;
-                        $this->score++;
+
+                        if (!$this->path[$this->pos]->getTravelled()) {
+                            $this->score++;
+                        }
                     }
 
                     if ($this->pos === 0 && $this->dest == "LEFT") {
@@ -89,7 +92,10 @@ class Game {
                     if ($this->pos < $this->width - 1) {
                         $this->pos++;
                         $redraw = true;
-                        $this->score++;
+
+                        if (!$this->path[$this->pos]->getTravelled()) {
+                            $this->score++;
+                        }
                     }
 
                     if ($this->pos === $this->width - 1 && $this->dest == "RIGHT") {
